@@ -136,7 +136,7 @@ class AVSUploader: NSObject, NSURLSessionTaskDelegate {
                             if let b = boundry {
                                 self.successHandler?(data: responseData, parts:self.parseResponse(responseData, boundry: b))
                             } else {
-                                self.errorHandler?(error: NSError(domain: Config.Error.ErrorDomain, code: Config.Error.AVSResponseBorderParseErrorCode, userInfo: [NSLocalizedDescriptionKey : "Could not find boundry in AVS response"]))
+                                self.errorHandler?(error: NSError(domain: Config.Error.ErrorDomain, code: Config.Error.AVSResponseBorderParseErrorCode, userInfo: [NSLocalizedDescriptionKey : "Could not find boundary in AVS response"]))
                             }
                         }
                     } else {
