@@ -12,16 +12,17 @@
 		B6017A7A1BA46E4E006DABB5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B6017A791BA46E4E006DABB5 /* Images.xcassets */; };
 		B6017A7D1BA46E4E006DABB5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6017A7B1BA46E4E006DABB5 /* Main.storyboard */; };
 		B6798B261BA9C6DB0020B47A /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6798B251BA9C6DB0020B47A /* AVFoundation.framework */; };
-		B6798B281BA9C9D10020B47A /* AVSUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6798B271BA9C9D10020B47A /* AVSUploader.swift */; settings = {ASSET_TAGS = (); }; };
-		B6798B2A1BA9E7BF0020B47A /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6798B291BA9E7BF0020B47A /* Config.swift */; settings = {ASSET_TAGS = (); }; };
+		B6798B281BA9C9D10020B47A /* AVSUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6798B271BA9C9D10020B47A /* AVSUploader.swift */; };
+		B6798B2A1BA9E7BF0020B47A /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6798B291BA9E7BF0020B47A /* Config.swift */; };
 		B6798B321BAA3FE90020B47A /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B6798B311BAA3FE90020B47A /* libz.tbd */; };
 		B6798B341BAA411B0020B47A /* GCDWebServers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6798B331BAA411B0020B47A /* GCDWebServers.framework */; };
 		B6798B351BAA411B0020B47A /* GCDWebServers.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B6798B331BAA411B0020B47A /* GCDWebServers.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		B6798B381BAA471C0020B47A /* SimpleWebServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6798B371BAA471C0020B47A /* SimpleWebServer.swift */; settings = {ASSET_TAGS = (); }; };
-		B6798B3A1BAA4B200020B47A /* login.html in Resources */ = {isa = PBXBuildFile; fileRef = B6798B391BAA4B200020B47A /* login.html */; settings = {ASSET_TAGS = (); }; };
+		B6798B381BAA471C0020B47A /* SimpleWebServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6798B371BAA471C0020B47A /* SimpleWebServer.swift */; };
+		B6798B3A1BAA4B200020B47A /* login.html in Resources */ = {isa = PBXBuildFile; fileRef = B6798B391BAA4B200020B47A /* login.html */; };
 		B6EFD2821BA473CF009154C4 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6EFD2811BA473CF009154C4 /* CoreAudio.framework */; };
 		B6EFD2841BA473E8009154C4 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6EFD2831BA473E8009154C4 /* AudioToolbox.framework */; };
-		B6EFD2871BA5BAB9009154C4 /* SimplePCMRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6EFD2861BA5BAB9009154C4 /* SimplePCMRecorder.swift */; settings = {ASSET_TAGS = (); }; };
+		B6EFD2871BA5BAB9009154C4 /* SimplePCMRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6EFD2861BA5BAB9009154C4 /* SimplePCMRecorder.swift */; };
+		F33551D21C9C717900A7CFF2 /* Alexa.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33551D11C9C717900A7CFF2 /* Alexa.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -55,6 +56,7 @@
 		B6EFD2811BA473CF009154C4 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		B6EFD2831BA473E8009154C4 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		B6EFD2861BA5BAB9009154C4 /* SimplePCMRecorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimplePCMRecorder.swift; sourceTree = "<group>"; };
+		F33551D11C9C717900A7CFF2 /* Alexa.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alexa.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +103,7 @@
 				B6017A771BA46E4E006DABB5 /* ViewController.swift */,
 				B6017A791BA46E4E006DABB5 /* Images.xcassets */,
 				B6017A7B1BA46E4E006DABB5 /* Main.storyboard */,
+				F33551D11C9C717900A7CFF2 /* Alexa.swift */,
 				B6017A731BA46E4E006DABB5 /* Supporting Files */,
 			);
 			path = AVSExample;
@@ -205,6 +208,7 @@
 				B6798B2A1BA9E7BF0020B47A /* Config.swift in Sources */,
 				B6798B281BA9C9D10020B47A /* AVSUploader.swift in Sources */,
 				B6EFD2871BA5BAB9009154C4 /* SimplePCMRecorder.swift in Sources */,
+				F33551D21C9C717900A7CFF2 /* Alexa.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

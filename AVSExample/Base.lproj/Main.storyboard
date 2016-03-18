@@ -84,14 +84,35 @@
                         </subviews>
                     </view>
                     <connections>
+                        <outlet property="Menu" destination="OdX-ge-mh8" id="57v-DJ-0ke"/>
                         <outlet property="configureButton" destination="jhl-gQ-YXq" id="hrV-Hi-Sj1"/>
+                        <outlet property="menuConfigure" destination="GeF-DA-2cH" id="H7p-bb-pCt"/>
+                        <outlet property="menuRecord" destination="aKp-MW-un3" id="Bes-rg-Mfj"/>
+                        <outlet property="menuStatus" destination="9pM-Bb-FUN" id="KVX-G2-mF6"/>
                         <outlet property="recordButton" destination="l4z-3X-EJ7" id="OxZ-5b-ojd"/>
                         <outlet property="statusLabel" destination="HO8-oe-V4c" id="Taa-r4-E78"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <menu id="OdX-ge-mh8">
+                    <items>
+                        <menuItem title="Record" id="aKp-MW-un3">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                        </menuItem>
+                        <menuItem title="Configure" id="GeF-DA-2cH">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                        </menuItem>
+                        <menuItem isSeparatorItem="YES" id="brO-44-O5t"/>
+                        <menuItem title="Status" id="9pM-Bb-FUN">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                        </menuItem>
+                    </items>
+                    <connections>
+                        <binding destination="XfG-lQ-9wD" name="font" keyPath="self.statusMenu" id="5Iv-4X-oFe"/>
+                    </connections>
+                </menu>
             </objects>
-            <point key="canvasLocation" x="181.5" y="588.5"/>
+            <point key="canvasLocation" x="264.5" y="523.5"/>
         </scene>
     </scenes>
 </document>

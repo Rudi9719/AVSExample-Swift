@@ -7,7 +7,7 @@ import Cocoa
 import AVFoundation
 import GCDWebServers
 
-class ViewController: NSViewController, AVAudioPlayerDelegate, SimpleWebServerDelegate {
+class Alexa: NSObject, AVAudioPlayerDelegate, SimpleWebServerDelegate {
     
     @IBOutlet weak var recordButton: NSButton!
     @IBOutlet weak var statusLabel: NSTextField!
@@ -30,20 +30,22 @@ class ViewController: NSViewController, AVAudioPlayerDelegate, SimpleWebServerDe
     
     private var player: AVAudioPlayer?
     private var userDefaults = NSUserDefaults.standardUserDefaults()
-
+    
     required init?(coder: NSCoder) {
         self.simplePCMRecorder = SimplePCMRecorder(numberBuffers: 1)
         
-        super.init(coder: coder)
+       
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override init() {
         
+        
+        
+        self.simplePCMRecorder = SimplePCMRecorder(numberBuffers: 1)
         let statusItem = NSStatusBar.systemStatusBar().statusItemWithLength(NSVariableStatusItemLength)
         statusItem.menu = menuBar
         
-        NSAppleEventManager.sharedAppleEventManager().setEventHandler(self, andSelector: "handleURLEvent", forEventClass: AEEventClass(kInternetEventClass), andEventID: AEEventID(kAEGetURL))
+        
         self.menuStatus.enabled = false
         self.recordButton.enabled = false
         self.menuRecord.enabled = false
@@ -56,18 +58,21 @@ class ViewController: NSViewController, AVAudioPlayerDelegate, SimpleWebServerDe
         self.recordButton.continuous = true
         self.recordButton.setPeriodicDelay(0.075, interval: 0.075)
         
-        SimpleWebServer.instance.delegate = self
-        SimpleWebServer.instance.startWebServer()
+        
         
         // Have the recorder create a first recording that will get tossed so it starts faster later
         try! self.simplePCMRecorder.setupForRecording(tempFilename, sampleRate:16000, channels:1, bitsPerChannel:16, errorHandler: nil)
         try! self.simplePCMRecorder.startRecording()
         try! self.simplePCMRecorder.stopRecording()
         self.simplePCMRecorder = SimplePCMRecorder(numberBuffers: 1)
+        super.init()
+        NSAppleEventManager.sharedAppleEventManager().setEventHandler(self, andSelector: "handleURLEvent", forEventClass: AEEventClass(kInternetEventClass), andEventID: AEEventID(kAEGetURL))
+        SimpleWebServer.instance.delegate = self
+        SimpleWebServer.instance.startWebServer()
     }
     
     @IBAction func recordingAction(sender: AnyObject?) {
-       
+        
         if menuRecord.state == NSOffState {
             if !self.isRecording {
                 self.isRecording = true
@@ -82,7 +87,7 @@ class ViewController: NSViewController, AVAudioPlayerDelegate, SimpleWebServerDe
                 
                 self.statusLabel.stringValue = "Recording"
                 self.menuStatus.title = "Recording"
-            
+                
             }
         } else {
             if self.isRecording {
@@ -101,7 +106,7 @@ class ViewController: NSViewController, AVAudioPlayerDelegate, SimpleWebServerDe
         }
     }
     @IBAction func recordAction(recordButton: NSButton) {
-
+        
         if recordButton.state == NSOffState {
             if !self.isRecording {
                 self.isRecording = true
@@ -111,7 +116,7 @@ class ViewController: NSViewController, AVAudioPlayerDelegate, SimpleWebServerDe
                     print(error)
                     try! self.simplePCMRecorder.stopRecording()
                 })
-
+                
                 try! self.simplePCMRecorder.startRecording()
                 
                 self.statusLabel.stringValue = "Recording"
@@ -132,9 +137,9 @@ class ViewController: NSViewController, AVAudioPlayerDelegate, SimpleWebServerDe
                 self.upload()
             }
         }
-
+        
     }
- 
+    
     @IBAction func configureAction(sender: AnyObject) {
         NSWorkspace.sharedWorkspace().openURL(self.webServerURL!)
     }
@@ -146,7 +151,7 @@ class ViewController: NSViewController, AVAudioPlayerDelegate, SimpleWebServerDe
         uploader.authToken = self.currentAccessToken
         
         uploader.jsonData = self.createMeatadata()
-
+        
         uploader.audioData = NSData(contentsOfFile: tempFilename)!
         
         uploader.errorHandler = { (error:NSError) in
@@ -242,14 +247,14 @@ class ViewController: NSViewController, AVAudioPlayerDelegate, SimpleWebServerDe
                 self.recordButton.enabled = true
                 self.menuRecord.enabled = true
             })
-
+            
         } else {
-        
-        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-            self.statusLabel.stringValue = "Configuration needed"
-            self.menuStatus.title = "Configuration needed"
-            self.configureButton.enabled = true
-        })
+            
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                self.statusLabel.stringValue = "Configuration needed"
+                self.menuStatus.title = "Configuration needed"
+                self.configureButton.enabled = true
+            })
         }
     }
     
