@@ -24,6 +24,7 @@ class ViewController: NSViewController, AVAudioPlayerDelegate, SimpleWebServerDe
     private let tempFilename = "\(NSTemporaryDirectory())avsexample.wav"
     
     private var player: AVAudioPlayer?
+    private var userDefaults = NSUserDefaults.standardUserDefaults()
     
     required init?(coder: NSCoder) {
         self.simplePCMRecorder = SimplePCMRecorder(numberBuffers: 1)
@@ -172,13 +173,25 @@ class ViewController: NSViewController, AVAudioPlayerDelegate, SimpleWebServerDe
     //
     
     func startupComplete(webServerURL: NSURL) {
+        userDefaults.synchronize()
         // Always force localhost as the host
         self.webServerURL = NSURL(scheme: webServerURL.scheme, host: "localhost:\(webServerURL.port!)", path: webServerURL.path!)
+        if let accessToken = self.userDefaults.stringForKey("access_token") {
+            self.currentAccessToken = accessToken
+            self.tokenExpirationTime = userDefaults.objectForKey("tokenExpiresIn") as? NSDate
+            
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                self.statusLabel.stringValue = "Ready"
+                self.recordButton.enabled = true
+            })
+
+        } else {
         
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
             self.statusLabel.stringValue = "Configuration needed"
             self.configureButton.enabled = true
         })
+        }
     }
     
     func configurationComplete(tokenExpirationTime: NSDate, currentAccessToken: String) {

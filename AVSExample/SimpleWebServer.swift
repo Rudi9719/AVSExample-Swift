@@ -13,6 +13,8 @@ protocol SimpleWebServerDelegate {
 
 class SimpleWebServer: NSObject, GCDWebServerDelegate {
     
+    var userDefaults = NSUserDefaults.standardUserDefaults()
+    
     static let instance = SimpleWebServer()
     
     var delegate: SimpleWebServerDelegate?
@@ -49,7 +51,9 @@ class SimpleWebServer: NSObject, GCDWebServerDelegate {
                 
                 var tokenExpirationTime: NSDate?
                 var currentAccessToken: String?
-                
+                self.userDefaults.setObject(accessToken, forKey: "access_token")
+                self.userDefaults.setObject(expiresIn, forKey: "tokenExpiresIn")
+                self.userDefaults.synchronize()
                 if let eid = Double(expiresIn) {
                     tokenExpirationTime = NSDate().dateByAddingTimeInterval(eid)
                 } else {
