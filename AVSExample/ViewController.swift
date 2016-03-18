@@ -25,7 +25,7 @@ class ViewController: NSViewController, AVAudioPlayerDelegate, SimpleWebServerDe
     
     private var player: AVAudioPlayer?
     private var userDefaults = NSUserDefaults.standardUserDefaults()
-    
+
     required init?(coder: NSCoder) {
         self.simplePCMRecorder = SimplePCMRecorder(numberBuffers: 1)
         
@@ -34,13 +34,13 @@ class ViewController: NSViewController, AVAudioPlayerDelegate, SimpleWebServerDe
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         NSAppleEventManager.sharedAppleEventManager().setEventHandler(self, andSelector: "handleURLEvent", forEventClass: AEEventClass(kInternetEventClass), andEventID: AEEventID(kAEGetURL))
 
         self.recordButton.enabled = false
         self.statusLabel.stringValue = "Starting"
         
-        self.configureButton.enabled = false
+        self.configureButton.enabled = true
         
         self.recordButton.continuous = true
         self.recordButton.setPeriodicDelay(0.075, interval: 0.075)
@@ -55,6 +55,36 @@ class ViewController: NSViewController, AVAudioPlayerDelegate, SimpleWebServerDe
         self.simplePCMRecorder = SimplePCMRecorder(numberBuffers: 1)
     }
     
+    @IBAction func recordingAction(recordButton: NSButton) {
+        if recordButton.state == NSOffState {
+            if !self.isRecording {
+                self.isRecording = true
+                
+                self.simplePCMRecorder = SimplePCMRecorder(numberBuffers: 1)
+                try! self.simplePCMRecorder.setupForRecording(tempFilename, sampleRate:16000, channels:1, bitsPerChannel:16, errorHandler: { (error:NSError) -> Void in
+                    print(error)
+                    try! self.simplePCMRecorder.stopRecording()
+                })
+                
+                try! self.simplePCMRecorder.startRecording()
+                
+                self.statusLabel.stringValue = "Recording"
+            }
+        } else {
+            if self.isRecording {
+                self.isRecording = false
+                recordButton.state = NSOffState
+                
+                self.recordButton.enabled = false
+                
+                try! self.simplePCMRecorder.stopRecording()
+                
+                self.statusLabel.stringValue = "Uploading recording"
+                
+                self.upload()
+            }
+        }
+    }
     @IBAction func recordAction(recordButton: NSButton) {
 
         if recordButton.state == NSOffState {
